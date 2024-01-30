@@ -1,9 +1,8 @@
-﻿using ProductsManager.Domain.Entities;
-
-namespace ProductsManager.Domain.DTOs
+﻿namespace ProductsManager.Domain.DTOs
 {
-    public  class ProductDTO : Entity
+    public class ProductDTO
     {
+        public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public int StatusId { get; set; }
         public string StatusDescription { get; set; } = string.Empty;

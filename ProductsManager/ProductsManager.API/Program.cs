@@ -1,6 +1,12 @@
+using MediatR;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using ProductsManager.Application;
+using ProductsManager.Application.Products.Commands.Create;
+using ProductsManager.Application.Products.Queries.GetAll;
 using ProductsManager.Infrastructure.Persistence;
 using ProductsManager.Infrastructure.Shared;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +15,6 @@ builder.Services.AddApplicationLayer();
 builder.Services.AddPersistenceInfrastructure(builder.Configuration);
 builder.Services.AddSharedInfrastructure();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -20,6 +25,13 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    using var scope = app.Services.CreateScope();
+    var dbInitializer = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitializer>();
+    if (dbInitializer != null)
+    {
+        await dbInitializer.InitializeAsync();
+    }
 }
 
 app.UseHttpsRedirection();
@@ -43,6 +55,22 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast")
 .WithOpenApi();
+
+app.MapPost("/products", async (CreateProductCommand command, IMediator mediator) =>
+{
+    await mediator.Send(command);
+})
+.WithName("SaveProduct")
+.WithOpenApi();
+
+app.MapGet("/products", async (IMediator mediator) =>
+{
+    var response = await mediator.Send(new GetProductsQuery());
+    return Results.Ok(response);
+})
+.WithName("GetProducts")
+.WithOpenApi();
+
 
 app.Run();
 

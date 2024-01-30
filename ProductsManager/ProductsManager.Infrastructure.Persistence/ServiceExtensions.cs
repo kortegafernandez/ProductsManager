@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ProductsManager.Application.Abstractions;
+using ProductsManager.Infrastructure.Persistence.Repositories;
+using System;
 
 namespace ProductsManager.Infrastructure.Persistence
 {
@@ -12,6 +15,9 @@ namespace ProductsManager.Infrastructure.Persistence
             ArgumentException.ThrowIfNullOrEmpty(connectionString, nameof(connectionString));
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(connectionString));
-        }
+
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ApplicationDbContextInitializer>();            
+        }        
     }
 }

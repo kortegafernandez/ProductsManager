@@ -1,12 +1,11 @@
 using MediatR;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
 using ProductsManager.Application;
 using ProductsManager.Application.Products.Commands.Create;
+using ProductsManager.Application.Products.Commands.Update;
 using ProductsManager.Application.Products.Queries.GetAll;
+using ProductsManager.Application.Products.Queries.GetById;
 using ProductsManager.Infrastructure.Persistence;
 using ProductsManager.Infrastructure.Shared;
-using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,26 +35,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
-
 app.MapPost("/products", async (CreateProductCommand command, IMediator mediator) =>
 {
     await mediator.Send(command);
@@ -71,10 +50,19 @@ app.MapGet("/products", async (IMediator mediator) =>
 .WithName("GetProducts")
 .WithOpenApi();
 
+app.MapGet("/products/{id}", async (int id,IMediator mediator) =>
+{
+    var response = await mediator.Send(new GetProductByIdQuery() { Id = id});
+    return Results.Ok(response);
+})
+.WithName("GetProductById")
+.WithOpenApi();
+
+app.MapPut("/products", async (UpdateProductCommand command, IMediator mediator) =>
+{
+    var response = await mediator.Send(command);    
+})
+.WithName("UpdateProduct")
+.WithOpenApi();
 
 app.Run();
-
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

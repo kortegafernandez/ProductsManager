@@ -1,6 +1,14 @@
+using ProductsManager.Application;
+using ProductsManager.Infrastructure.Persistence;
+using ProductsManager.Infrastructure.Shared;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddApplicationLayer();
+builder.Services.AddPersistenceInfrastructure();
+builder.Services.AddSharedInfrastructure();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

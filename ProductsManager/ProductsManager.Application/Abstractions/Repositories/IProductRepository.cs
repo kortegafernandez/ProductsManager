@@ -3,7 +3,7 @@ using ProductsManager.Domain.Entities;
 
 namespace ProductsManager.Application.Abstractions
 {
-    public interface IProductRepository : IGenericRepository<Product>
+    public interface IProductRepository : IReadGenericRepository<Product>, IWriteGenericRepository<Product>
     {
     }
 }

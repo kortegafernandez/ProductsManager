@@ -7,7 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.1" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProductsManager.Application\ProductsManager.Application.csproj" />
+    <ProjectReference Include="..\ProductsManager.Domain\ProductsManager.Domain.csproj" />
   </ItemGroup>
 
 </Project>

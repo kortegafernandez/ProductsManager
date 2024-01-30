@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using ProductsManager.Application.Mappings;
 using System.Reflection;
 
 namespace ProductsManager.Application
@@ -10,6 +11,7 @@ namespace ProductsManager.Application
             services.AddMediatR(cfg => {
                 cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());              
             });
+            services.AddAutoMapper(typeof(AutoMapperProfile));
         }
     }
 }

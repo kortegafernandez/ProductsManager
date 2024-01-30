@@ -1,5 +1,7 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using ProductsManager.Application.Abstractions;
+using ProductsManager.Domain.Entities;
 
 namespace ProductsManager.Application.Products.Commands.Update
 {
@@ -13,19 +15,15 @@ namespace ProductsManager.Application.Products.Commands.Update
         public decimal Price { get; set; }
     }
 
-    public class UpateProductCommandHandler(IProductRepository productRepository) : IRequestHandler<UpdateProductCommand, Unit>
+    public class UpateProductCommandHandler(IProductRepository productRepository,IMapper mapper) : IRequestHandler<UpdateProductCommand, Unit>
     {
         public async Task<Unit> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
         {
             var existingProduct = await productRepository.GetByIdAsync(request.Id, cancellationToken);
-            existingProduct.Name = request.Name;
-            existingProduct.Price = request.Price;
-            existingProduct.StatusId = request.StatusId;
-            existingProduct.Stock = request.Stock;
-            existingProduct.Description = request.Description;
 
-            await productRepository.UpdateAsync(existingProduct, cancellationToken);
-
+            if (existingProduct != null)            
+                await productRepository.UpdateAsync(mapper.Map<Product>(request), cancellationToken);
+            
             return Unit.Value;
         }
     }

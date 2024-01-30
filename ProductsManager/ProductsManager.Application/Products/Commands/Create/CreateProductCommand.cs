@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using ProductsManager.Application.Abstractions;
 using ProductsManager.Domain.Entities;
 
@@ -13,11 +14,11 @@ namespace ProductsManager.Application.Products.Commands.Create
         public decimal Price { get; set; }
     }
 
-    public class CreateProductCommandHandler(IProductRepository productRepository) : IRequestHandler<CreateProductCommand,Unit>
+    public class CreateProductCommandHandler(IProductRepository productRepository,IMapper mapper) : IRequestHandler<CreateProductCommand,Unit>
     {        
         public async Task<Unit> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
-            var product = new  Product { Name = request.Name, StatusId = request.StatusId, Stock = request.Stock, Price = request.Price };
+            Product product = mapper.Map<Product>(request);
             await productRepository.InsertAsync(product, cancellationToken);
 
             return Unit.Value;

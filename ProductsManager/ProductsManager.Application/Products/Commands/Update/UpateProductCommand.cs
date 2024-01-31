@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using ProductsManager.Application.Abstractions;
-using ProductsManager.Domain.Entities;
+using ProductsManager.Domain.Exceptions;
 
 namespace ProductsManager.Application.Products.Commands.Update
 {
@@ -19,10 +19,11 @@ namespace ProductsManager.Application.Products.Commands.Update
     {
         public async Task<Unit> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
         {
-            var existingProduct = await productRepository.GetByIdAsync(request.Id, cancellationToken);
+            var existingProduct = await productRepository.GetByIdAsync(request.Id, cancellationToken) 
+                ?? throw new ProductNotFoundException(request.Id);
 
-            if (existingProduct != null)            
-                await productRepository.UpdateAsync(mapper.Map<Product>(request), cancellationToken);
+            mapper.Map(request, existingProduct);
+            await productRepository.UpdateAsync(existingProduct, cancellationToken);
             
             return Unit.Value;
         }

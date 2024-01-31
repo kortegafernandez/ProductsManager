@@ -20,7 +20,7 @@ namespace ProductsManager.Infrastructure.Persistence.Repositories
 
         public virtual async Task<T?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
         {
-            return await context.Set<T>().AsNoTracking().FirstAsync(c => c.Id == id,cancellationToken);
+            return await context.Set<T>().FindAsync(id,cancellationToken);
         }
 
         public virtual async Task InsertAsync(T entity, CancellationToken cancellationToken = default)

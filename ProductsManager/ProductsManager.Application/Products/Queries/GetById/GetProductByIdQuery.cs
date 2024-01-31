@@ -3,6 +3,7 @@ using MediatR;
 using ProductsManager.Application.Abstractions;
 using ProductsManager.Application.Abstractions.Clients;
 using ProductsManager.Domain.DTOs;
+using ProductsManager.Domain.Exceptions;
 
 namespace ProductsManager.Application.Products.Queries.GetById
 {
@@ -15,7 +16,8 @@ namespace ProductsManager.Application.Products.Queries.GetById
     {
         public async Task<ProductDTO> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
         {
-            var product = await productRepository.GetByIdAsync(request.Id, cancellationToken);
+            var product = await productRepository.GetByIdAsync(request.Id, cancellationToken)
+                ?? throw new ProductNotFoundException(request.Id);
 
             var productDTO = mapper.Map<ProductDTO>(product);
             decimal discountResponse = await discountAPIClient.GetDiscountByProductIdAsync(request.Id);

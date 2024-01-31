@@ -6,14 +6,14 @@ using ProductsManager.Domain.Entities;
 
 namespace ProductsManager.Application.Mappings
 {
-    public  class AutoMapperProfile : Profile
+    public class ProductProfile : Profile
     {
-        public AutoMapperProfile()
+        public ProductProfile()
         {
             CreateMap<Product, ProductDTO>().ReverseMap();
             CreateMap<Product, UpdateProductCommand>().ReverseMap();
             CreateMap<Product, CreateProductCommand>().ReverseMap();
-            
+
         }
     }
 }

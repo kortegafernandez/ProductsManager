@@ -1,4 +1,6 @@
 using MediatR;
+using NLog.Web;
+using ProductsManager.API.Middlewares;
 using ProductsManager.Application;
 using ProductsManager.Application.Products.Commands.Create;
 using ProductsManager.Application.Products.Commands.Update;
@@ -17,7 +19,11 @@ builder.Services.AddSharedInfrastructure();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Host.UseNLog();
+
 var app = builder.Build();
+
+app.UseMiddleware<RequestLoggingMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

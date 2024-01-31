@@ -27,7 +27,7 @@ namespace ProductsManager.Application.Products.Queries.GetById
             productDTO.FinalPrice = productDTO.Price * (100 - discountResponse) / 100;
 
 
-            var statusCache = productMemoryCache.GetData<Dictionary<int,string>>("ProductsStatus");
+            var statusCache = productMemoryCache.GetData<Dictionary<int,string>>(Constants.Constants.PRODUCT_CACHE_STATUS_KEY);
             if (statusCache != null && statusCache.ContainsKey(productDTO.StatusId))
             {
                 productDTO.StatusDescription = statusCache[productDTO.StatusId].ToString();

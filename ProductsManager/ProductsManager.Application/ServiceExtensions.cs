@@ -25,9 +25,7 @@ namespace ProductsManager.Application
 
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
-                        
-            services.AddMemoryCache();
-            services.AddSingleton<IProductMemoryCache, ProductMemoryCache>();
+                                   
         }
     }
 }

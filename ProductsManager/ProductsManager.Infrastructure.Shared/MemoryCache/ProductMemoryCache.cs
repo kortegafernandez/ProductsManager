@@ -1,27 +1,26 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using ProductsManager.Application.Abstractions.MemoryCache;
+using ProductsManager.Application.Constants;
 
-namespace ProductsManager.Application.Products
+namespace ProductsManager.Infrastructure.Shared.MemoryCache
 {
     public class ProductMemoryCache(IMemoryCache memoryCache) : IProductMemoryCache
     {              
         void InitStatusCache()
         {
-            Dictionary<int, string> productsStatus =
-                new()
+            if (!memoryCache.TryGetValue(Constants.PRODUCT_CACHE_STATUS_KEY, out Dictionary<int, string> productsStatusCache))
+            {
+                productsStatusCache =
+                    new()
                 {
                         { 0, "Inactive" },
                         { 1, "Active" }
-                };
-
-            if (!memoryCache.TryGetValue("ProductsStatus", out Dictionary<int, string> productsStatusCache))
-            {
-                productsStatusCache = productsStatus;
+                }; ;
 
                 var cacheEntryOptions = new MemoryCacheEntryOptions()
-                    .SetSlidingExpiration(TimeSpan.FromMinutes(5));
+                    .SetSlidingExpiration(TimeSpan.FromMinutes(Constants.PRODUCT_CACHE_EXPIRATION_MINUTES));
 
-                memoryCache.Set("ProductsStatus", productsStatusCache, cacheEntryOptions);
+                memoryCache.Set(Constants.PRODUCT_CACHE_STATUS_KEY, productsStatusCache, cacheEntryOptions);
             }
         }
 

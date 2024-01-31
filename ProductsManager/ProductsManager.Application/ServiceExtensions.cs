@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
+using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using ProductsManager.Application.Behaviours;
 using System.Reflection;
 
 namespace ProductsManager.Application
@@ -17,6 +20,9 @@ namespace ProductsManager.Application
             {
                 cfg.AddMaps(Assembly.GetExecutingAssembly());
             });
+
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
         }
     }
 }

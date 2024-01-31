@@ -5,14 +5,9 @@ using ProductsManager.Domain.Exceptions;
 
 namespace ProductsManager.Application.Products.Commands.Update
 {
-    public class UpdateProductCommand : IRequest<Unit>
+    public class UpdateProductCommand : ProductCommandBase, IRequest<Unit>
     {
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public int StatusId { get; set; }
-        public int Stock { get; set; }
-        public string Description { get; set; } = string.Empty;
-        public decimal Price { get; set; }
+        public int Id { get; set; }       
     }
 
     public class UpateProductCommandHandler(IProductRepository productRepository,IMapper mapper) : IRequestHandler<UpdateProductCommand, Unit>

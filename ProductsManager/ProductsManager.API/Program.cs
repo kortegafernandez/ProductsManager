@@ -1,4 +1,6 @@
 using MediatR;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.OpenApi.Models;
 using NLog.Web;
 using ProductsManager.API.Middlewares;
 using ProductsManager.Application;
@@ -25,6 +27,7 @@ var app = builder.Build();
 
 app.UseMiddleware<RequestLoggingMiddleware>();
 
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -44,9 +47,14 @@ app.UseHttpsRedirection();
 app.MapPost("/products", async (CreateProductCommand command, IMediator mediator) =>
 {
     await mediator.Send(command);
+    Results.Created();
 })
-.WithName("SaveProduct")
-.WithOpenApi();
+.WithName("CreateProduct")
+.WithOpenApi(x => new OpenApiOperation(x)
+ {
+     Summary = "Add a new product",
+     Description = "Adds a product with its current price.",
+ });
 
 app.MapGet("/products", async (IMediator mediator) =>
 {
@@ -66,9 +74,12 @@ app.MapGet("/products/{id}", async (int id,IMediator mediator) =>
 
 app.MapPut("/products", async (UpdateProductCommand command, IMediator mediator) =>
 {
-    var response = await mediator.Send(command);    
+    await mediator.Send(command);
+    Results.Ok();
 })
 .WithName("UpdateProduct")
 .WithOpenApi();
+
+app.UseMiddleware<ResponseWrapperMiddleware>();
 
 app.Run();

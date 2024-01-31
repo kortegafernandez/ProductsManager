@@ -8,7 +8,8 @@ namespace ProductsManager.Application.Products.Commands
         public ProductCommandBaseValidator()
         {
             RuleFor(p => p.Name)
-                .NotNull();
+                .NotEmpty()
+                .MaximumLength(100);
 
             RuleFor(p => p.StatusId)
                 .Must(p =>
@@ -23,7 +24,8 @@ namespace ProductsManager.Application.Products.Commands
                 .NotNull();
 
             RuleFor(p => p.Description)
-                .NotNull();
+                .NotEmpty()
+                .MaximumLength(500);
 
             RuleFor(p => p.Price)
                 .NotNull();

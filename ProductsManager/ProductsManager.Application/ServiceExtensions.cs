@@ -2,7 +2,9 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using ProductsManager.Application.Abstractions.MemoryCache;
 using ProductsManager.Application.Behaviours;
+using ProductsManager.Application.Products;
 using System.Reflection;
 
 namespace ProductsManager.Application
@@ -23,6 +25,9 @@ namespace ProductsManager.Application
 
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+                        
+            services.AddMemoryCache();
+            services.AddSingleton<IProductMemoryCache, ProductMemoryCache>();
         }
     }
 }

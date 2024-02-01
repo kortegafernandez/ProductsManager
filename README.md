@@ -33,6 +33,10 @@ The project utilizes several design patterns to enhance its structure and mainta
 - MediatR: Mediator implementation
 - Moq, XUnit: Unit test implementation
 - NLog: Performance logging to track response time
+  
+     ```bash
+     Log file is created under this location ..\ProductsManager.API\logs
+     
 - In-Memory Cache: lightweight cache implementation
 - mockAPI: external discount API implementation
 
@@ -55,4 +59,4 @@ Follow these steps to clone and run the **ProductsManager** project:
    ```bash
    dotnet run
 
-
+  

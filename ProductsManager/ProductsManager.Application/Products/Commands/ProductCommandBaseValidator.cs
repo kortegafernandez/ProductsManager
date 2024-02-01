@@ -21,14 +21,14 @@ namespace ProductsManager.Application.Products.Commands
                     }).WithMessage("Status must be 0 or 1.");
 
             RuleFor(p => p.Stock)
-                .NotNull();
+                .NotEmpty();
 
             RuleFor(p => p.Description)
                 .NotEmpty()
                 .MaximumLength(500);
 
             RuleFor(p => p.Price)
-                .NotNull();
+                .NotEmpty();
         }
     }
 }

@@ -5,13 +5,15 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductsManager.API", "ProductsManager.API\ProductsManager.API.csproj", "{8F037F71-C3F8-4A46-B269-1259E712A1C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductsManager.Domain", "ProductsManager.Domain\ProductsManager.Domain.csproj", "{2725374E-E964-4A7E-80CD-407196256E4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductsManager.Domain", "ProductsManager.Domain\ProductsManager.Domain.csproj", "{2725374E-E964-4A7E-80CD-407196256E4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductsManager.Application", "ProductsManager.Application\ProductsManager.Application.csproj", "{0688CDE2-2187-433A-8413-292C7D0E6CFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductsManager.Application", "ProductsManager.Application\ProductsManager.Application.csproj", "{0688CDE2-2187-433A-8413-292C7D0E6CFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductsManager.Infrastructure.Shared", "ProductsManager.Infrastructure.Shared\ProductsManager.Infrastructure.Shared.csproj", "{11A29AB0-2DC6-46BC-96AC-9D5E718C0DFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductsManager.Infrastructure.Shared", "ProductsManager.Infrastructure.Shared\ProductsManager.Infrastructure.Shared.csproj", "{11A29AB0-2DC6-46BC-96AC-9D5E718C0DFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductsManager.Infrastructure.Persistence", "ProductsManager.Infrastructure.Persistence\ProductsManager.Infrastructure.Persistence.csproj", "{66D9ED6B-B2B0-487C-BB69-BBF87F805448}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductsManager.Infrastructure.Persistence", "ProductsManager.Infrastructure.Persistence\ProductsManager.Infrastructure.Persistence.csproj", "{66D9ED6B-B2B0-487C-BB69-BBF87F805448}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductsManager.Tests", "ProductsManager.Tests\ProductsManager.Tests.csproj", "{21AE8AC3-71F3-46A2-8FFF-0F63FEE2A8F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{66D9ED6B-B2B0-487C-BB69-BBF87F805448}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66D9ED6B-B2B0-487C-BB69-BBF87F805448}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66D9ED6B-B2B0-487C-BB69-BBF87F805448}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21AE8AC3-71F3-46A2-8FFF-0F63FEE2A8F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21AE8AC3-71F3-46A2-8FFF-0F63FEE2A8F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21AE8AC3-71F3-46A2-8FFF-0F63FEE2A8F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21AE8AC3-71F3-46A2-8FFF-0F63FEE2A8F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

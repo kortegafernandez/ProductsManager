@@ -1,14 +1,8 @@
-using MediatR;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.OpenApi.Models;
 using NLog.Web;
 using ProductsManager.API.Middlewares;
 using ProductsManager.API.Modules;
 using ProductsManager.Application;
-using ProductsManager.Application.Products.Commands.Create;
-using ProductsManager.Application.Products.Commands.Update;
-using ProductsManager.Application.Products.Queries.GetAll;
-using ProductsManager.Application.Products.Queries.GetById;
 using ProductsManager.Infrastructure.Persistence;
 using ProductsManager.Infrastructure.Shared;
 
@@ -20,7 +14,23 @@ builder.Services.AddPersistenceInfrastructure(builder.Configuration);
 builder.Services.AddSharedInfrastructure();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+var info = new OpenApiInfo()
+{
+    Title = "Products Manager API",
+    Version = "v1",
+    Description = "Manage Product Information",
+    Contact = new OpenApiContact()
+    {
+        Name = "Karol Magdalena Ortega Fernandez",
+        Email = "kortegafernandez@gmail.com",
+    }
+
+};
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", info);
+});
 
 builder.Host.UseNLog();
 

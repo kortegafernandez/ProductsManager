@@ -29,7 +29,11 @@ namespace ProductsManager.API.Modules
                 return Results.Ok(response);
             })
             .WithName("GetProducts")
-            .WithOpenApi();
+            .WithOpenApi(x => new OpenApiOperation(x)
+            {
+                Summary = "Get all the products",
+                Description = "Get a product list.",
+            });
 
             app.MapGet("/products/{id}", async (int id, IMediator mediator) =>
             {
@@ -37,7 +41,11 @@ namespace ProductsManager.API.Modules
                 return Results.Ok(response);
             })
             .WithName("GetProductById")
-            .WithOpenApi();
+            .WithOpenApi(x => new OpenApiOperation(x)
+            {
+                Summary = "Get a product with a specific Id",
+                Description = "Get product details including product discount.",
+            });
 
             app.MapPut("/products", async (UpdateProductCommand command, IMediator mediator) =>
             {
@@ -45,7 +53,11 @@ namespace ProductsManager.API.Modules
                 Results.Ok();
             })
             .WithName("UpdateProduct")
-            .WithOpenApi();
+            .WithOpenApi(x => new OpenApiOperation(x)
+            {
+                Summary = "Update an existing product",
+                Description = "Update an existing product.",
+            });
         }
     }
 }

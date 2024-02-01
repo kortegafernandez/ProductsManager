@@ -39,6 +39,8 @@ The project utilizes several design patterns to enhance its structure and mainta
      
 - In-Memory Cache: lightweight cache implementation
 - mockAPI: external discount API implementation
+- Entity Framework Core
+- SQLite
 
 
 ## Steps to Run the Site
